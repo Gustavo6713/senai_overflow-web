@@ -1,20 +1,13 @@
-
-function Page1() {
-  return <h1>Esta é a pagina 1</h1>
-}
-
-function Page2() {
-  return <h1>Esta é a pagina 2</h1>
-}
+import { GlobalStyles } from "./GlobalStyles";
+import Home from "./pages/Home";
 
   function App() {
 
-    let currentPage = 2;
-
     return (
-    <div className="App">
-      {currentPage === 2 ? <Page1 /> : <Page2 />}
-    </div>
+      <>
+      <GlobalStyles />
+      <Home/>
+      </>
   );
 }
 
