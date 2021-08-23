@@ -1,18 +1,18 @@
 import { Container } from "./styles";
 
-function Coments() {
+function Coments({coment}) {
     return (
         <Container>
             <header>
                 <img src="https://cdn4.iconfinder.com/data/icons/glyphs/24/icons_user2-128.png" />
                 <strong>
-                    Amanda Silva 
+                    por {coment.author.name}
                 </strong>
                 <p>
-                    em 18/08/2021 às 10:32
+                    em {coment.created_at} às 08:51
                 </p>
             </header>
-            <p>Viajando com que dinheiro? Desempregado!</p>
+            <p>{coment.description}</p>
         </Container>
     );
 }
