@@ -1,5 +1,5 @@
 import { Container, FormContainer } from "./styles";
-import Input from "../../componentes/Input";
+import Input from "../../components/Input";
 import { useState } from "react";
 import { api } from "../../services/api";
 import { signIn } from "../../services/security";

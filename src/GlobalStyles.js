@@ -16,8 +16,8 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     body{
-        font-family: sans-serif;
-        color: var(---textPrimary);
+        font-family: sans-serif, Arial;
+        color: var(--textPrimary);
     }
 
     button {
@@ -26,6 +26,8 @@ export const GlobalStyles = createGlobalStyle`
         background-color: transparent;
         border: 2px solid var(--textPrimary);
         color: var(--textPrimary);
+        cursor: pointer;
+        transition: .2s;
 
         :hover{
             border: 2px solid var(--primary);

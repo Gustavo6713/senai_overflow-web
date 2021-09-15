@@ -14,7 +14,6 @@ export const GistIcon = styled(FaGithub)`
 
 export const Main = styled.main`
     margin-top: 60px;
-    padding: 10px;
 
     display: grid;
     grid-template-columns: 20% 60% 20%;
@@ -82,7 +81,7 @@ export const Post = styled.article`
             margin-left: -20px;
             margin-top: 10px;
         }
-
+        
         > section{
             margin-top: 10px;
             display: flex;
@@ -93,11 +92,10 @@ export const Post = styled.article`
                 box-shadow: 0px 0px 10px rgba(0,0,0,0.25);
             }
         }
-
     }
 
     > footer{
-        
+
         > h2{
             margin-top: 10px;
             font-size: 18px;

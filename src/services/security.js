@@ -31,10 +31,10 @@ export const setUser = (user) => {
 };
 
 export const isSignedIn = () => {
-  // recupero o user do localStorage
+  //recupero o user do localStorage
   const user = JSON.parse(localStorage.getItem(USER_KEY));
 
-  // verifico se user existe e se existe um token
+  //verifico se user existe e se existe um token
   if (user && user.token) {
     //decodifico o token
     const jwtDecoded = jwtDecode(user.token);
@@ -42,9 +42,9 @@ export const isSignedIn = () => {
     //pega a hora atual do sistema e converte em segundos
     const nowTime = (Date.now() / 1000) | 0;
 
-    //verifica se a data de expiração do token é menor que a data atual 
+    //verifica se a data de expiração do token é menor que a data atual
     if (jwtDecoded.exp < nowTime) {
-      // se for menior, faz logout
+      //se for menor, faz logout
       return signOut();
     }
 

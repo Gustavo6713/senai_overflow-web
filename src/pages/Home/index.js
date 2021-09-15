@@ -1,8 +1,13 @@
-import Header from "../../componentes/Header";
-import Coments from "../../componentes/Coments";
-import { FeedContainer, GistIcon, Main, Post } from "./styles";
-import { useEffect, useState } from "react";
+import Header from "../../components/Header";
+import Coments from "../../components/Coments";
+import Input from "../../components/Input";
+import Select from "../../components/Select";
+import Modal from "../../components/Modal";
+import Tag from "../../components/Tag";
+import { FeedContainer, GistIcon, Main, Post, FormNewQuestion } from "./styles";
+import { useEffect, useState, useRef } from "react";
 import { api } from "../../services/api";
+
 
 function Home() {
 
@@ -10,7 +15,7 @@ function Home() {
 
     const loadPosts = async () => {
         try {
-            
+
             const response = await api.get("/posts");
 
             setPosts(response.data);
@@ -63,8 +68,15 @@ function Home() {
                     {posts.map(post => <PostCard post={post} />)}
                 </FeedContainer>
                 <aside>
-                    Actions
+                    <button>
+                        +
+                    </button>
                 </aside>
+                <Modal title="teste">
+                    <NewQuestion
+
+                    />
+                </Modal>
             </Main>
         </>
     );
@@ -101,6 +113,84 @@ function PostCard({ post }) {
                 {post.coments.map(coment => <Coments coment={coment} />)}
             </footer>
         </Post>
+    );
+}
+
+function NewQuestion({ handleReload, setIsLoading }) {
+    const [newQuestion, setNewQuestion] = useState({
+        title: "",
+        description: "",
+        gist: "",
+    });
+
+    const [image, setImage] = useState(null);
+
+    const imageRef = useRef();
+
+
+    const handleImage = (e) => {
+        if (e.target.files[0]) {
+            imageRef.current.src = URL.createObjectURL(e.target.files[0]);
+            imageRef.current.style.display = "flex";
+        } else {
+            imageRef.current.src = "";
+            imageRef.current.style.display = "none";
+        }
+
+        setImage(e.target.files[0]);
+    };
+
+    const handleInput = (e) => {
+        setNewQuestion({ ...newQuestion, [e.target.id]: e.target.value });
+    };
+
+    const handleAddNewPost = async (e) => {
+        e.preventDefault();
+        
+        let data = new FormData();
+
+        data.append("title", newQuestion.title);
+        data.append("description", newQuestion.description);
+        data.append("gist", newQuestion.gist);
+        
+        data.append("image", image);
+
+        await post("/posts", data, {
+            headers: {
+                "content-type": "multipart/form-data"
+            }
+        })
+    };
+
+    return (
+        <FormNewQuestion onSubmit={handleAddNewPost}>
+            <Input
+                id="title"
+                label="Título"
+                value={newQuestion.title}
+                handler={handleInput}
+                minLength="5"
+                required
+            />
+            <Input
+                id="description"
+                label="Descrição"
+                value={newQuestion.description}
+                handler={handleInput}
+                minLength="10"
+                required
+            />
+            <Input
+                id="gist"
+                label="Gist"
+                value={newQuestion.gist}
+                minLength="20"
+                handler={handleInput}
+            />
+            <input type="file" onChange={handleImage} />
+            <img alt="Pré-visualização" ref={imageRef} />
+            <button>Enviar</button>
+        </FormNewQuestion>
     );
 }
 

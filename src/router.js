@@ -2,15 +2,16 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import { isSignedIn } from "./services/security";
+import Register from "./pages/Register";
 
- 
 function PrivateRoute({ children, ...rest }) {
-    
-    if(isSignedIn()) {
+
+    if(isSignedIn()){
         return <Route {...rest}>{children}</Route>
     }else{
         return <Redirect to="/" />
     }
+
 }
 
 function Router() {
@@ -19,10 +20,10 @@ function Router() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/">
+                <Route exact path="/">
                     <Login />
                 </Route>
-                <Route exact path="/register"> 
+                <Route exact path="/register">
                     <Register />
                 </Route>
                 <PrivateRoute path="/home">
@@ -32,3 +33,5 @@ function Router() {
         </BrowserRouter>
     );
 }
+
+export default Router;
